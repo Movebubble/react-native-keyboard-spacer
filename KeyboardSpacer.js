@@ -82,14 +82,18 @@ export default class KeyboardSpacer extends Component {
         LayoutAnimation.Properties.opacity,
       );
     }
-    LayoutAnimation.configureNext(animationConfig);
-
+    
     // get updated on rotation
     const screenHeight = Dimensions.get('window').height;
     // when external physical keyboard is connected
     // event.endCoordinates.height still equals virtual keyboard height
     // however only the keyboard toolbar is showing if there should be one
     const keyboardSpace = (screenHeight - event.endCoordinates.screenY) + this.props.topSpacing;
+    
+    if (this.state.keyboardSpace !== keyboardSpace || !this.state.isKeyboardOpened) {
+      LayoutAnimation.configureNext(animationConfig);
+    }
+
     this.setState({
       keyboardSpace,
       isKeyboardOpened: true
@@ -105,7 +109,10 @@ export default class KeyboardSpacer extends Component {
         LayoutAnimation.Properties.opacity,
       );
     }
-    LayoutAnimation.configureNext(animationConfig);
+
+    if (this.state.keyboardSpace !== 0 || this.state.isKeyboardOpened) {
+      LayoutAnimation.configureNext(animationConfig);
+    }
 
     this.setState({
       keyboardSpace: 0,
