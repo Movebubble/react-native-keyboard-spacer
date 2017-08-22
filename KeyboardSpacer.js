@@ -92,12 +92,12 @@ export default class KeyboardSpacer extends Component {
     
     if (this.state.keyboardSpace !== keyboardSpace || !this.state.isKeyboardOpened) {
       LayoutAnimation.configureNext(animationConfig);
+      this.setState({
+        keyboardSpace,
+        isKeyboardOpened: true
+      }, this.props.onToggle(true, keyboardSpace));
     }
 
-    this.setState({
-      keyboardSpace,
-      isKeyboardOpened: true
-    }, this.props.onToggle(true, keyboardSpace));
   }
 
   resetKeyboardSpace(event) {
@@ -112,12 +112,12 @@ export default class KeyboardSpacer extends Component {
 
     if (this.state.keyboardSpace !== 0 || this.state.isKeyboardOpened) {
       LayoutAnimation.configureNext(animationConfig);
+      this.setState({
+        keyboardSpace: 0,
+        isKeyboardOpened: false
+      }, this.props.onToggle(false, 0));
     }
 
-    this.setState({
-      keyboardSpace: 0,
-      isKeyboardOpened: false
-    }, this.props.onToggle(false, 0));
   }
 
   render() {
