@@ -38,11 +38,13 @@ export default class KeyboardSpacer extends Component {
     topSpacing: PropTypes.number,
     onToggle: PropTypes.func,
     style: View.propTypes.style,
+    visible: PropTypes.bool,
   };
 
   static defaultProps = {
     topSpacing: 0,
     onToggle: () => null,
+    visible: true,
   };
 
   constructor(props, context) {
@@ -121,6 +123,9 @@ export default class KeyboardSpacer extends Component {
   }
 
   render() {
+    if (!this.props.visible) {
+      return null;
+    }
     return (
       <View style={[styles.container, { height: this.state.keyboardSpace }, this.props.style]} />);
   }
